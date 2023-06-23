@@ -1,6 +1,6 @@
 import sys
 import os
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -37,8 +37,6 @@ class MainApp(Ui_MainWindow):
         if file_name:
             self.input_file_path = file_name
             self.input_file_label.setText(file_name)
-            # self.input_file_path = os.fspath(self.input_file_path.text())
-            # self.output_folder_path = os.fspath(self.output_folder_path.text())
 
     def select_output_folder(self):
         # Implement folder selection dialog and display selected folder path
@@ -48,8 +46,6 @@ class MainApp(Ui_MainWindow):
         if folder_path:
             self.output_folder_path = folder_path
             self.output_folder_label.setText(folder_path)
-            # self.input_file_path = os.fspath(self.input_file_path.text())
-            # self.output_folder_path = os.fspath(self.output_folder_path.text())
 
     def convert_file(self):
         converter = Converter(self.input_file_path, self.output_folder_path)

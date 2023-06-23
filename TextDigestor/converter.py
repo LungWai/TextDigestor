@@ -9,8 +9,8 @@ import textract
 
 class Converter:
     def __init__(self, input_file_path, output_folder_path):
-        self.input_file_path = input_file_path.text()
-        self.output_folder_path = output_folder_path.text()
+        self.input_file_path = input_file_path
+        self.output_folder_path = output_folder_path
         self.timestamp = int(time.time())
         self.output_file = os.path.join(self.output_folder_path, f"{self.timestamp}_output.json")
 
