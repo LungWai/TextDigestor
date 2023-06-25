@@ -12,6 +12,7 @@ class Cleaner:
 
         with open(self.input_file_path, "w", encoding="utf-8") as output_file:
             output_file.write(cleaned_text)
+            print(f"Cleaned {self.input_file_path}")
 
     def remove_wrong_encoding(self, text):
         return re.sub(r'[^\x00-\x7F]+', ' ', text)

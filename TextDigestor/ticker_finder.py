@@ -1,21 +1,21 @@
 import os
+import time
+from datetime import datetime
 import json
 import re
 from transformers import pipeline
 
 class TickerFinder:
-    def __init__(self, output_folder_path):
+    def __init__(self, input_file_path, output_folder_path):
         self.output_folder_path = output_folder_path
-        self.input_file = os.path.join(output_folder_path, "output.txt")
-        self.output_file = os.path.join(output_folder_path, f"{self.get_timestamp()}_ticker.json")
+        self.timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        self.input_file_path = input_file_path  
+        self.output_file = os.path.join(output_folder_path, f"{self.timestamp}_ticker.json")
         self.ticker_pipeline = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english")
 
-    def get_timestamp(self):
-        from datetime import datetime
-        return datetime.now().strftime("%Y%m%d%H%M%S")
 
     def find_ticker(self):
-        with open(self.input_file, "r") as f:
+        with open(self.input_file_path, "r") as f:
             text = f.read()
 
         ticker_data = self.ticker_pipeline(text)

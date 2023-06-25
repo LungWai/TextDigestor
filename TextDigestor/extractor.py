@@ -1,12 +1,12 @@
 import os
-import time
+from datetime import datetime
 from transformers import pipeline
 
 class Extractor:
     def __init__(self, input_file_path, output_folder_path):
         self.input_file_path = input_file_path
         self.output_folder_path = output_folder_path
-        self.timestamp = int(time.time())
+        self.timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         self.output_file = os.path.join(self.output_folder_path, f"{self.timestamp}_extract.txt")
 
     def extract(self):

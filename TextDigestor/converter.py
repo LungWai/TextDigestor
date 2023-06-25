@@ -1,5 +1,5 @@
 import os
-import time
+from datetime import datetime
 from pathlib import Path
 from pydub import AudioSegment
 from moviepy.editor import VideoFileClip
@@ -11,7 +11,7 @@ class Converter:
     def __init__(self, input_file_path, output_folder_path):
         self.input_file_path = input_file_path
         self.output_folder_path = output_folder_path
-        self.timestamp = int(time.time())
+        self.timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         self.output_file = os.path.join(self.output_folder_path, f"{self.timestamp}_output.json")
 
     def convert(self):
@@ -24,7 +24,7 @@ class Converter:
 
     def convert_document_to_text(self):
         text = textract.process(self.input_file_path).decode("utf-8")
-        with open(self.output_file, "w") as output:
+        with open(self.output_file, "w", encoding="utf-8") as output:
             output.write(text)
 
     def convert_audio_to_text(self):
@@ -44,7 +44,7 @@ class Converter:
         predicted_ids = torch.argmax(logits, dim=-1)
         transcription = processor.decode(predicted_ids[0])
 
-        with open(self.output_file, "w") as output:
+        with open(self.output_file, "w", encoding="utf-8") as output:
             output.write(transcription)
 
         os.remove("temp_audio.wav")
